@@ -38,7 +38,7 @@ export class AccountService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');
         this.userSubject.next(null);
-        this.router.navigate(['/account/login']);
+        this.router.navigate(['/login']);
     }
 
     register(user: User) {
@@ -52,6 +52,7 @@ export class AccountService {
     getById(id: string) {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
+
 
     update(id: string, params: any) {
         return this.http.put(`${environment.apiUrl}/users/${id}`, params)

@@ -26,8 +26,9 @@
           <li class="nav-item"><a routerLink="/wishlist" class="nav-link">Wishlist</a></li>
           <li class="nav-item"><a routerLink="/checkout" class="nav-link">Checkout</a></li>
           <li class="nav-item cta cta-colored"><a routerLink="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-          <li class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
-          <li class="nav-item"><a routerLink="/login" class="nav-link">Welcome, {{user?.username}}!</a></li>
+          <li *ngIf="!this.user" class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+          <li *ngIf="this.user"class="nav-item"><a class="nav-link">Welcome, {{this.user?.username}}!</a></li>
+          <li *ngIf="this.user" class="nav-item"><a routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
 
 
         </ul>

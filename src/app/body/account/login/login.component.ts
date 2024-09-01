@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterModule, RouterOutlet, } from '@angular/router';
 import { AccountService } from '../../../services/account.service';
 import { first } from 'rxjs';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { first } from 'rxjs';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule,RouterOutlet
+    RouterModule, RouterOutlet
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    // private alertService: AlertService
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -42,14 +43,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    //this.alertService.clear();        // reset alerts on submit
+    this.alertService.clear();        // reset alerts on submit
 
     if (this.form.invalid) {     // stop here if form is invalid
       return;
     }
 
     this.loading = true;
-    console.log(this.f.email.value);
     this.accountService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe({
@@ -59,7 +59,13 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(returnUrl);
         },
         error: error => {
-          //this.alertService.error(error);
+          if (error.hasOwnProperty("error")) {
+            this.alertService.error(error.error.message);
+          }
+          else {
+            this.alertService.error(error);
+
+          }
           this.loading = false;
         }
       });
