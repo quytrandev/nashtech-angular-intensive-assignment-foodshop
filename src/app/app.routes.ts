@@ -4,8 +4,9 @@ import { HomeComponent } from './body/home/home.component';
 import { WishlistComponent } from './body/wishlist/wishlist.component';
 import { CartComponent } from './body/cart/cart.component';
 import { CheckoutComponent } from './body/checkout/checkout.component';
-import { LoginComponent } from './body/auth/login/login.component';
-import { RegisterComponent } from './body/auth/register/register.component';
+import { LoginComponent } from './body/account/login/login.component';
+import { RegisterComponent } from './body/account/register/register.component';
+import { AuthGuard } from './backend-less/auth.guard';
 
 export const routes: Routes = [
     {
@@ -22,7 +23,8 @@ export const routes: Routes = [
     },
     {
         path:'wishlist',
-        component: WishlistComponent
+        component: WishlistComponent,
+        canActivate: [AuthGuard]
     },
     {
         path:'cart',
@@ -30,7 +32,8 @@ export const routes: Routes = [
     },
     {
         path:'checkout',
-        component: CheckoutComponent
+        component: CheckoutComponent,
+        canActivate: [AuthGuard]
     },
     {
         path:'login',
@@ -39,5 +42,9 @@ export const routes: Routes = [
     {
         path:'register',
         component: RegisterComponent
+    },
+    {
+        path:'**',
+        component: HomeComponent
     },
 ];

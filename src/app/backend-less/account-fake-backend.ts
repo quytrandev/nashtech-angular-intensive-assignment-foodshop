@@ -6,7 +6,7 @@ import { delay, materialize, dematerialize } from 'rxjs/operators';
 const usersKey = 'nastech-angular-food-shop-users';
 let users: any[] = JSON.parse(localStorage.getItem(usersKey)!) || [];
 
-export function fakeBackendInterceptor(request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
+export function AccountFakeBackendInterceptor(request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = request;
 
     return handleRoute();

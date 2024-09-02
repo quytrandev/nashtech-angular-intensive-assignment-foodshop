@@ -4,14 +4,21 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
-import { fakeBackendInterceptor } from './backend-less/fake-backend';
+import { AccountFakeBackendInterceptor } from './backend-less/account-fake-backend';
+import { JwtInterceptor } from './backend-less/jwt.interceptor';
+import { AccountService } from './services/account.service';
+import { ErrorInterceptor } from './backend-less/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),
       provideHttpClient(
-        withInterceptors([fakeBackendInterceptor]),
+        withInterceptors(
+          [
+            JwtInterceptor,
+            ErrorInterceptor,
+            AccountFakeBackendInterceptor,]),
       ),
       
     ]
