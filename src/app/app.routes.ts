@@ -7,6 +7,7 @@ import { CheckoutComponent } from './body/checkout/checkout.component';
 import { LoginComponent } from './body/account/login/login.component';
 import { RegisterComponent } from './body/account/register/register.component';
 import { AuthGuard } from './backend-less/auth.guard';
+import { NotfoundComponent } from './body/notfound/notfound.component';
 
 export const routes: Routes = [
     {
@@ -45,6 +46,6 @@ export const routes: Routes = [
     },
     {
         path:'**',
-        component: HomeComponent
+        component: NotfoundComponent
     },
 ];
