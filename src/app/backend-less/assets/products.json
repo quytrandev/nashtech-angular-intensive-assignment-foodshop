@@ -1,0 +1,114 @@
+{
+  "products": {
+    "product": [
+      {
+        "id": "1",
+        "productName": "Bell Pepper",
+        "priceBeforeSale": 80.00,
+        "photoSrc": "images/product-1.jpg",
+        "isOnSale": true, 
+        "salePercentage":"75%", 
+        "priceAfterSale": 19.99
+      },
+      {
+        "id": "2",
+        "productName": "Strawberry",
+        "priceBeforeSale": 120,
+        "photoSrc": "images/product-2.jpg",
+        "isOnSale": false, 
+        "salePercentage":"15%", 
+        "priceAfterSale": 102.00
+      },
+      {
+        "id": "3",
+        "productName": "Green Beans",
+        "priceBeforeSale": 50,
+        "photoSrc": "images/product-3.jpg",
+        "isOnSale": true, 
+        "salePercentage":"15%", 
+        "priceAfterSale": 42.50
+      },
+      {
+        "id": "4",
+        "productName": "Purple Cabbage",
+        "priceBeforeSale": 90,
+        "photoSrc": "images/product-4.jpg",
+        "isOnSale": false, 
+        "salePercentage":"10%", 
+        "priceAfterSale": 81.00
+      },
+      {
+        "id": "5",
+        "productName": "Tomato",
+        "priceBeforeSale": 70,
+        "photoSrc": "images/product-5.jpg",
+        "isOnSale": true, 
+        "salePercentage":"25%", 
+        "priceAfterSale": 52.50
+      },
+      {
+        "id": "6",
+        "productName": "Brocoli",
+        "priceBeforeSale": 60,
+        "photoSrc": "images/product-6.jpg",
+        "isOnSale": false, 
+        "salePercentage": "50%" ,
+         "priceAfterSale": 30.00
+      },
+      {
+        "id": "7",
+        "productName": "Carrots",
+        "priceBeforeSale": 40,
+        "photoSrc": "images/product-7.jpg",
+        "isOnSale": false, 
+        "salePercentage": "10%" ,
+         "priceAfterSale": 36.00 
+      },
+      {
+        "id": "8",
+        "productName": "Fruit Juice",
+        "priceBeforeSale": 100,
+        "photoSrc": "images/product-8.jpg",
+        "isOnSale": true, 
+        "salePercentage": "10%" ,
+         "priceAfterSale": 90.00
+      },
+      {
+        "id": "9",
+        "productName": "Onion",
+        "priceBeforeSale": 60,
+        "photoSrc": "images/product-9.jpg",
+        "isOnSale": true,
+         "salePercentage": "5%" ,
+        "priceAfterSale": 57.00
+      },
+      {
+        "id": "10",
+        "productName": "Apple",
+        "priceBeforeSale": 80,
+        "photoSrc": "images/product-10.jpg",
+        "isOnSale": true,
+         "salePercentage":"18%" , 
+         "priceAfterSale": 65.60
+      },
+      {
+        "id": "11",
+        "productName": "Garlic",
+        "priceBeforeSale": 80,
+        "photoSrc": "images/product-11.jpg",
+        "isOnSale": true,
+        "salePercentage":"18%" , 
+        "priceAfterSale": 65.60
+      },
+      {
+        "id": "12",
+        "productName": "Chilli",
+        "priceBeforeSale": 30,
+        "photoSrc": "images/product-12.jpg",
+        "isOnSale": true, 
+        "salePercentage": "3%" , 
+        "priceAfterSale": 29.10
+      }
+    ]
+  }
+}
