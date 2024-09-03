@@ -8516,11 +8516,12 @@ h1, h2, h3, h4, h5,
   .btn.btn-primary {
     background: #82ae46;
     border: 1px solid #82ae46;
-    color: #fff; }
+    color: #ffffff !important 
+  }
     .btn.btn-primary:hover {
-      border: 1px solid #82ae46;
+      border: 1px solid #82ae46 !important;
       background: transparent;
-      color: #82ae46; }
+      color: #82ae46 !important }
     .btn.btn-primary.btn-outline-primary {
       border: 1px solid #82ae46;
       background: transparent;
