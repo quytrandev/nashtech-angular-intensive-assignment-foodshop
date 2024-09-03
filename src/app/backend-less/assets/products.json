@@ -13,7 +13,7 @@
       {
         "id": "2",
         "productName": "Strawberry",
-        "priceBeforeSale": 120,
+        "priceBeforeSale": 120.00,
         "photoSrc": "images/product-2.jpg",
         "isOnSale": false, 
         "salePercentage":"15%", 
@@ -22,7 +22,7 @@
       {
         "id": "3",
         "productName": "Green Beans",
-        "priceBeforeSale": 50,
+        "priceBeforeSale": 50.00,
         "photoSrc": "images/product-3.jpg",
         "isOnSale": true, 
         "salePercentage":"15%", 
@@ -31,7 +31,7 @@
       {
         "id": "4",
         "productName": "Purple Cabbage",
-        "priceBeforeSale": 90,
+        "priceBeforeSale": 90.00,
         "photoSrc": "images/product-4.jpg",
         "isOnSale": false, 
         "salePercentage":"10%", 
@@ -40,7 +40,7 @@
       {
         "id": "5",
         "productName": "Tomato",
-        "priceBeforeSale": 70,
+        "priceBeforeSale": 70.00,
         "photoSrc": "images/product-5.jpg",
         "isOnSale": true, 
         "salePercentage":"25%", 
@@ -49,7 +49,7 @@
       {
         "id": "6",
         "productName": "Brocoli",
-        "priceBeforeSale": 60,
+        "priceBeforeSale": 60.00,
         "photoSrc": "images/product-6.jpg",
         "isOnSale": false, 
         "salePercentage": "50%" ,
@@ -58,7 +58,7 @@
       {
         "id": "7",
         "productName": "Carrots",
-        "priceBeforeSale": 40,
+        "priceBeforeSale": 40.00,
         "photoSrc": "images/product-7.jpg",
         "isOnSale": false, 
         "salePercentage": "10%" ,
@@ -67,7 +67,7 @@
       {
         "id": "8",
         "productName": "Fruit Juice",
-        "priceBeforeSale": 100,
+        "priceBeforeSale": 100.00,
         "photoSrc": "images/product-8.jpg",
         "isOnSale": true, 
         "salePercentage": "10%" ,
@@ -76,7 +76,7 @@
       {
         "id": "9",
         "productName": "Onion",
-        "priceBeforeSale": 60,
+        "priceBeforeSale": 60.00,
         "photoSrc": "images/product-9.jpg",
         "isOnSale": true,
          "salePercentage": "5%" ,
@@ -85,7 +85,7 @@
       {
         "id": "10",
         "productName": "Apple",
-        "priceBeforeSale": 80,
+        "priceBeforeSale": 80.00,
         "photoSrc": "images/product-10.jpg",
         "isOnSale": true,
          "salePercentage":"18%" , 
@@ -94,7 +94,7 @@
       {
         "id": "11",
         "productName": "Garlic",
-        "priceBeforeSale": 80,
+        "priceBeforeSale": 80.00,
         "photoSrc": "images/product-11.jpg",
         "isOnSale": true,
         "salePercentage":"18%" , 
@@ -103,7 +103,7 @@
       {
         "id": "12",
         "productName": "Chilli",
-        "priceBeforeSale": 30,
+        "priceBeforeSale": 30.00,
         "photoSrc": "images/product-12.jpg",
         "isOnSale": true, 
         "salePercentage": "3%" , 

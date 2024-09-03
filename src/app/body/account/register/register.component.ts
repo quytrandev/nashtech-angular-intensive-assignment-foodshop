@@ -6,13 +6,15 @@ import { first } from 'rxjs/operators';
 import { AccountService } from '../../../services/account.service';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../../../services/alert.service';
+import { AlertComponent } from "../../../alert/alert.component";
 @Component({
     selector: 'app-register',
     standalone: true,
     imports: [
-        ReactiveFormsModule,
-        CommonModule
-    ],
+    ReactiveFormsModule,
+    CommonModule,
+    AlertComponent
+],
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss'
 })

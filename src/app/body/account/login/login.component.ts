@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterModule, RouterOutlet, } from '@angular/ro
 import { AccountService } from '../../../services/account.service';
 import { first } from 'rxjs';
 import { AlertService } from '../../../services/alert.service';
+import { AlertComponent } from "../../../alert/alert.component";
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ import { AlertService } from '../../../services/alert.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule, RouterOutlet
-  ],
+    RouterModule, RouterOutlet,
+    AlertComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
