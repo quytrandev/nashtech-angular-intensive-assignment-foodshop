@@ -4,22 +4,31 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { first } from 'rxjs';
+import { AlertService } from '../../services/alert.service';
+import { AlertComponent } from "../../alert/alert.component";
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [CommonModule,
     ReactiveFormsModule,
-    RouterModule, RouterOutlet],
+    RouterModule, RouterOutlet, AlertComponent],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss'
 })
 export class ShopComponent implements OnInit {
   products?: any[];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private alertService:AlertService,
+    private cartService: CartService) {
   }
   ngOnInit(): void {
     this.productService.getAll().pipe(first()).subscribe(products => this.products = products);
+  }
+
+  addToCart(product:any){
+    this.alertService.success(product.productName + " has been added to your cart", { keepAfterRouteChange: true });
+    this.cartService.addToCart(product);
   }
 }
