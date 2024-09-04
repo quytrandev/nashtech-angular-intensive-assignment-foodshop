@@ -9,6 +9,7 @@ import { JwtInterceptor } from './backend-less/jwt.interceptor';
 import { AccountService } from './services/account.service';
 import { ErrorInterceptor } from './backend-less/error.interceptor';
 import { ProductFakeBackendInterceptor } from './backend-less/product-fake-backend';
+import { CartFakeBackendInterceptor } from './backend-less/cart-fake-backend';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +21,8 @@ export const appConfig: ApplicationConfig = {
             JwtInterceptor,
             ErrorInterceptor,
             AccountFakeBackendInterceptor,
-            ProductFakeBackendInterceptor]),
+            ProductFakeBackendInterceptor,
+            CartFakeBackendInterceptor]),
       ),
       
     ]

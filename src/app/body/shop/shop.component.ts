@@ -20,15 +20,21 @@ import { CartService } from '../../services/cart.service';
 export class ShopComponent implements OnInit {
   products?: any[];
 
-  constructor(private productService: ProductService, private alertService:AlertService,
+  constructor(private productService: ProductService, private alertService: AlertService,
     private cartService: CartService) {
   }
   ngOnInit(): void {
     this.productService.getAll().pipe(first()).subscribe(products => this.products = products);
   }
 
-  addToCart(product:any){
-    this.alertService.success(product.productName + " has been added to your cart", { keepAfterRouteChange: true });
-    this.cartService.addToCart(product);
+  addToCart(product: any) {
+    this.cartService.addToCart(product).pipe(first()).subscribe({
+      next: () => {
+        this.alertService.success(product.productName + " has been added to your cart", { keepAfterRouteChange: true });
+      },
+      error: error => {
+        this.alertService.error(error);
+      }
+    });
   }
 }

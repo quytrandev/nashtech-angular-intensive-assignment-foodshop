@@ -2,62 +2,113 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { first } from 'rxjs';
+import { AlertService } from '../../services/alert.service';
+import { AlertComponent } from "../../alert/alert.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AlertComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
   formCountry!: FormGroup;
+  formCoupon!: FormGroup;
+
   cartItems: any[] = [];
-  private coupons:any[] = ["NASHTECH","QTFOOD","ANGULARINTENSIVE"];
-  countries: any[] = 
-  [
-    {value:"uk", name: "United Kingdom"},
-    {value:"vn", name: "Vietnam"},
-    {value:"my", name: "Malaysia"},
-    {value:"usa", name: "America"},
+  private coupons: any[] = [
+    { value: "", discount: 0 },
+    { value: "NASHTECH", discount: 18 },
+    { value: "QTFOOD", discount: 15 },
+    { value: "ANGULARINTENSIVE", discount: 20 }
   ];
+  countries: any[] =
+    [
+      { value: "", name: "Choose a country", shippingFee: 0.00 },
+      { value: "uk", name: "United Kingdom", shippingFee: 15.50 },
+      { value: "vn", name: "Vietnam", shippingFee: 7.99 },
+      { value: "my", name: "Malaysia", shippingFee: 9.99 },
+      { value: "usa", name: "America", shippingFee: 25.69 },
+    ];
+  cartSubTotal!: number;
+  shippingFee: number = 0.00;
+  discountObject!:any;
 
+  discount: number = 0.00;
+  discountOnSubTotal: number = 0.00;
+  discountPercentage:string = "%";
+  grandTotal!: number;
 
-  constructor(public cartService: CartService, private formBuilder: FormBuilder) {
+  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService) {
   }
-
   ngOnInit(): void {
-    this.cartItems = this.getCartItems();
+    this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
     this.formCountry = this.formBuilder.group({
-      country:['']
+      country: ['']
     });
-      
+    this.formCoupon = this.formBuilder.group({
+      coupon: ['']
+    });
+    this.grandTotal = this.calculateCartSubTotal();
   }
-  get formCountryControls() { return this.formCountry.controls; } 
+  get formCountryControls() { return this.formCountry.controls; }
 
-  getCartItems() {
-    return this.cartService.getCartItems();
-  }
-  deleteCartItem(item: any) {
-    this.cartService.deleteCartItem(item);
-    this.cartItems = this.getCartItems();
-  }
+  get formCouponControls() { return this.formCoupon.controls; }
 
-  onCountrySubmit(event:any)
-  {
+
+  onFormSubmit(event: any) {
+    this.grandTotal = 0;
     if (this.formCountry.invalid) {     // stop here if form is invalid
       return;
     }
-     console.log(this.formCountryControls.country.value);
+    if (this.formCoupon.invalid) {     // stop here if form is invalid
+      return;
+    }
+
+    const chosenCountry = this.formCountryControls.country.value;
+    const appliedCoupon = this.formCouponControls.coupon.value;
+     
+    this.shippingFee = this.countries.find(({ value }) => value == chosenCountry).shippingFee;
+    this.discountObject = this.coupons.find(({ value }) => value == appliedCoupon.trim());
+
+    if (!this.discountObject) {
+      this.discount = 0;
+    }
+    else 
+    {
+      this.discountPercentage = -this.discountObject.discount+"%";
+      this.discount = this.discountObject.discount;
+      this.discountOnSubTotal = this.discount *this.cartSubTotal/100;
+    }
+    console.log('grand total discount');
+
+
+
   }
 
-  updateQuantity(item:any, event:any)
-  {
+  initCartItems() {
+    this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
+  }
+
+  deleteCartItem(item: any) {
+    this.cartService.deleteCartItem(item).pipe(first()).subscribe({});
+    this.initCartItems();
+  }
+  updateQuantity(item: any, event: any) {
     const quantity = event.target.value;
-    this.cartService.updateItemQuantity(item, quantity);
+    this.cartService.updateItemQuantity(item, quantity).pipe(first()).subscribe({});
+    this.initCartItems();
+
   }
 
-  calculateItemTotal(price:number, quantity:number){
-    return this.cartService.calculateItemTotal(price,quantity);
+
+  calculateCartSubTotal() {
+    const item = this.cartService.calculateCartSubTotal();
+    this.cartSubTotal = item;
+    this.discountOnSubTotal = this.discount * this.cartSubTotal / 100 ;
+    this.grandTotal = this.cartSubTotal + this.shippingFee - this.discountOnSubTotal;
+    return item;
   }
 }
