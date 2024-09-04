@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ import { AlertComponent } from "../../../alert/alert.component";
     imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterModule,
     AlertComponent
 ],
     templateUrl: './register.component.html',

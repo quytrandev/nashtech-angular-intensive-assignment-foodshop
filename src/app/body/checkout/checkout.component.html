@@ -1,1 +1,197 @@
-<p>checkout works!</p>
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-0 bread">Checkout</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7 ftco-animate">
+                <form id="checkout-form" [formGroup]="formCheckout" (ngSubmit)="onCheckoutSubmit()" action="#"
+                    class="billing-form">
+                    <h3 class="mb-4 billing-heading">Billing Details</h3>
+                    <div class="row align-items-end">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input formControlName="firstName" type="text" class="form-control" placeholder=""
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.firstName.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.firstName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.firstName.errors">First Name is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input formControlName="lastName"  type="text" class="form-control" placeholder=""[ngClass]="{ 'is-invalid': submitted && formCheckoutControls.lastName.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.lastName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.lastName.errors">Last Name is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="emailaddress">Email Address</label>
+                                <input formControlName="email" type="email" class="form-control" placeholder=""[ngClass]="{ 'is-invalid': submitted && formCheckoutControls.email.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.email.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.email.errors">Email is required</div>
+                                     <div *ngIf="formCheckoutControls.email.errors.email">Incorrect email format</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-100"></div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="streetaddress">Street Address</label>
+                                <input type="text" class="form-control" placeholder="House number and street name"formControlName="address" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.address.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.address.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.address.errors">Street Address is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <div class="select-wrap">
+                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                    <select formControlName="country" class="form-control text-left px-3"
+                                        name="countries" id="countries"
+                                        [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.country.errors }">
+                                        <option *ngFor="let country of countries" value="{{country.value}}">
+                                            {{country.name}}</option>
+
+                                    </select>
+                                    <div *ngIf="submitted && formCheckoutControls.country.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="formCheckoutControls.country.errors">Please choose a country</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="towncity">City</label>
+                                <input type="text" class="form-control" placeholder=""formControlName="city" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.city.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.city.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.city.errors">City is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" placeholder=""formControlName="phone" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.phone.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.phone.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.phone.errors">Phone is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="postcodezip">Postcode / ZIP</label>
+                                <input type="text" class="form-control" placeholder=""formControlName="postcode" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.postcode.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.postcode.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="formCheckoutControls.postcode.errors">Postcode / ZIP is required</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form><!-- END -->
+            </div>
+            <div class="col-xl-5">
+                <div class="row mt-5 pt-3">
+                    <div class="col-md-12 d-flex mb-5">
+                        <div class="cart-detail cart-total p-3 p-md-4">
+                            <h3 class="billing-heading mb-4">Cart Total</h3>
+                            <p class="d-flex">
+                                <span>Subtotal</span>
+                                <span>$20.60</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Delivery</span>
+                                <span>$0.00</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Discount</span>
+                                <span>$3.00</span>
+                            </p>
+                            <hr>
+                            <p class="d-flex total-price">
+                                <span>Total</span>
+                                <span>$17.60</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="cart-detail p-3 p-md-4">
+                            <h3 class="billing-heading mb-4">Payment Method</h3>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio" class="mr-2"> Direct Bank
+                                            Tranfer</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="radio">
+                                        <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="" class="mr-2"> I have read and accept the
+                                            terms and conditions</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" form="checkout-form" value="Place an order"
+                                class="btn btn-primary py-3 px-4">
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->
