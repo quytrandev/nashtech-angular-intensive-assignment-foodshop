@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from "../../alert/alert.component";
@@ -16,6 +16,8 @@ import { AlertComponent } from "../../alert/alert.component";
 export class CartComponent implements OnInit {
   formCountry!: FormGroup;
   formCoupon!: FormGroup;
+  isCountrySubmitted = false;
+  isCouponSubmitted = false;
 
   cartItems: any[] = [];
   private coupons: any[] = [
@@ -46,10 +48,10 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
     this.formCountry = this.formBuilder.group({
-      country: ['']
+      country: ['', Validators.required]
     });
     this.formCoupon = this.formBuilder.group({
-      coupon: ['']
+      coupon: ['',Validators.required]
     });
     this.grandTotal = this.calculateCartSubTotal();
   }
@@ -58,19 +60,27 @@ export class CartComponent implements OnInit {
   get formCouponControls() { return this.formCoupon.controls; }
 
 
-  onFormSubmit(event: any) {
-    this.grandTotal = 0;
+  onCountrySubmit() {
+    this.isCountrySubmitted = true;
+
     if (this.formCountry.invalid) {     // stop here if form is invalid
       return;
     }
+
+    const chosenCountry = this.formCountryControls.country.value;    
+    this.shippingFee = this.countries.find(({ value }) => value == chosenCountry).shippingFee;
+  }
+
+  onCouponSubmit() {
+    this.isCouponSubmitted = true;
+
+    this.grandTotal = 0;
     if (this.formCoupon.invalid) {     // stop here if form is invalid
       return;
     }
 
-    const chosenCountry = this.formCountryControls.country.value;
     const appliedCoupon = this.formCouponControls.coupon.value;
      
-    this.shippingFee = this.countries.find(({ value }) => value == chosenCountry).shippingFee;
     this.discountObject = this.coupons.find(({ value }) => value == appliedCoupon.trim());
 
     if (!this.discountObject) {
@@ -82,10 +92,6 @@ export class CartComponent implements OnInit {
       this.discount = this.discountObject.discount;
       this.discountOnSubTotal = this.discount *this.cartSubTotal/100;
     }
-    console.log('grand total discount');
-
-
-
   }
 
   initCartItems() {

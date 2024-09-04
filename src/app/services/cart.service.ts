@@ -25,6 +25,16 @@ export class CartService {
 
         if (existingProduct) {
             existingProduct.quantity += 1;
+            if (product.isOnSale) {
+                const price = product.priceAfterSale;
+                existingProduct.total = price * existingProduct.quantity;
+
+            }
+            else {
+                const price = product.priceBeforeSale
+                existingProduct.total = price * existingProduct.quantity
+
+            }            
         }
         else {
             if (product.isOnSale) {

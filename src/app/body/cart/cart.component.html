@@ -26,32 +26,32 @@
 
             <tbody>
 
-                <tr class="text-center" *ngFor="let item of cartItems">
-                  <td class="product-remove"><a (click)="deleteCartItem(item)"><span class="ion-ios-close"></span></a>
-                  </td>
+              <tr class="text-center" *ngFor="let item of cartItems">
+                <td class="product-remove"><a (click)="deleteCartItem(item)"><span class="ion-ios-close"></span></a>
+                </td>
 
-                  <td class="image-prod">
-                    <div class="img" style="background-image:url('{{item.photoSrc}}');"></div>
-                  </td>
+                <td class="image-prod">
+                  <div class="img" style="background-image:url('{{item.photoSrc}}');"></div>
+                </td>
 
-                  <td class="product-name">
-                    <h3>{{item.productName}}</h3>
-                  </td>
+                <td class="product-name">
+                  <h3>{{item.productName}}</h3>
+                </td>
 
-                  <td *ngIf="item.isOnSale" class="price">${{item.priceAfterSale | number:'1.2-2'}}</td>
-                  <td *ngIf="!item.isOnSale" class="price">${{item.priceBeforeSale|number:'1.2-2'}}</td>
+                <td *ngIf="item.isOnSale" class="price">${{item.priceAfterSale | number:'1.2-2'}}</td>
+                <td *ngIf="!item.isOnSale" class="price">${{item.priceBeforeSale|number:'1.2-2'}}</td>
 
-                  <td class="quantity">
-                    <div class="input-group mb-3">
-                      <input (change)="updateQuantity(item, $event)" type="number" name="quantity"
-                        class="quantity form-control" value="{{item.quantity}}" min="1" max="99">
-                    </div>
-                  </td>
+                <td class="quantity">
+                  <div class="input-group mb-3">
+                    <input (change)="updateQuantity(item, $event)" type="number" name="quantity"
+                      class="quantity form-control" value="{{item.quantity}}" min="1" max="99">
+                  </div>
+                </td>
 
-                  <td class="total">${{item.total| number:'1.2-2'}}</td>
-                  
+                <td class="total">${{item.total| number:'1.2-2'}}</td>
 
-                </tr><!-- END TR-->
+
+              </tr><!-- END TR-->
 
             </tbody>
 
@@ -66,10 +66,15 @@
           <p>Enter <strong>NASHTECH</strong>, <strong>QTFOOD</strong> or <strong>ANGULARINTENSIVE</strong> for
             <strong>direct Sub Total discount</strong>
           </p>
-          <form [formGroup]="formCoupon" (ngSubmit)="onFormSubmit($event)"action="#" class="info">
+          <form [formGroup]="formCoupon" (ngSubmit)="onCouponSubmit()" action="#" class="info">
             <div class="form-group">
               <label for="">Coupon code</label>
-              <input formControlName="coupon" type="text" class="form-control text-left px-3" placeholder="">
+              <input formControlName="coupon" type="text" class="form-control text-left px-3" placeholder=""
+                [ngClass]="{ 'is-invalid': isCouponSubmitted && formCouponControls.coupon.errors }">
+              <div *ngIf="isCouponSubmitted && formCouponControls.coupon.errors" class="invalid-feedback">
+                <div *ngIf="formCouponControls.coupon.errors">A coupon code is required</div>
+
+              </div>
             </div>
             <input type="submit" value="Apply coupon" class="btn btn-primary py-3 px-4">
 
@@ -81,12 +86,18 @@
         <div class="cart-total mb-3">
           <h3>Estimate shipping and tax</h3>
           <p>Enter your destination to get a shipping estimate</p>
-          <form [formGroup]="formCountry" (ngSubmit)="onFormSubmit($event)" action="#" class="info">
+          <form [formGroup]="formCountry" (ngSubmit)="onCountrySubmit()" action="#" class="info">
             <div class="form-group">
               <label for="">Country</label>
-              <select formControlName="country" class="form-control text-left px-3" name="countries" id="countries">
+              <select formControlName="country" class="form-control text-left px-3" name="countries" id="countries"
+                [ngClass]="{ 'is-invalid': isCountrySubmitted && formCountryControls.country.errors }">
                 <option *ngFor="let country of countries" value="{{country.value}}">{{country.name}}</option>
+
               </select>
+              <div *ngIf="isCountrySubmitted && formCountryControls.country.errors" class="invalid-feedback">
+                <div *ngIf="formCountryControls.country.errors">Please choose a country</div>
+
+              </div>
             </div>
             <input type="submit" value="Estimate" class="btn btn-primary py-3 px-4">
 
