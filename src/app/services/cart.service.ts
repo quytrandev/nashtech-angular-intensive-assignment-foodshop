@@ -109,4 +109,10 @@ export class CartService {
 
         }, 0)
     }
+
+    storeCheckoutInfo(checkoutObject:any)
+    {
+        return this.http.post(`${environment.apiUrl}/cart/proceedCheckout`, checkoutObject);
+
+    }
 }

@@ -10,16 +10,17 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-7 ftco-animate">
-                <form id="checkout-form" [formGroup]="formCheckout" (ngSubmit)="onCheckoutSubmit()" action="#"
-                    class="billing-form">
+        <form id="checkout-form" [formGroup]="formCheckout" (ngSubmit)="onCheckoutSubmit()" action="#"
+            class="billing-form" >
+            <div class="row justify-content-center">
+                <div class="col-xl-7 ftco-animate">
+
                     <h3 class="mb-4 billing-heading">Billing Details</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="firstname">First Name</label>
-                                <input formControlName="firstName" type="text" class="form-control" placeholder=""
+                                <input formControlName="firstName" type="text" class="form-control" placeholder="John"
                                     [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.firstName.errors }">
                                 <div *ngIf="submitted && formCheckoutControls.firstName.errors"
                                     class="invalid-feedback">
@@ -31,9 +32,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="lastname">Last Name</label>
-                                <input formControlName="lastName"  type="text" class="form-control" placeholder=""[ngClass]="{ 'is-invalid': submitted && formCheckoutControls.lastName.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.lastName.errors"
-                                    class="invalid-feedback">
+                                <input formControlName="lastName" type="text" class="form-control" placeholder="Doe"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.lastName.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.lastName.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.lastName.errors">Last Name is required</div>
 
                                 </div>
@@ -43,11 +44,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="emailaddress">Email Address</label>
-                                <input formControlName="email" type="email" class="form-control" placeholder=""[ngClass]="{ 'is-invalid': submitted && formCheckoutControls.email.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.email.errors"
-                                    class="invalid-feedback">
+                                <input formControlName="email" type="email" class="form-control" placeholder="quy.trantan@nashtechglobal.com"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.email.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.email.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.email.errors">Email is required</div>
-                                     <div *ngIf="formCheckoutControls.email.errors.email">Incorrect email format</div>
+                                    <div *ngIf="formCheckoutControls.email.errors.email">Incorrect email format</div>
 
                                 </div>
                             </div>
@@ -58,9 +59,10 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="streetaddress">Street Address</label>
-                                <input type="text" class="form-control" placeholder="House number and street name"formControlName="address" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.address.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.address.errors"
-                                    class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="364 Cong Hoa, Ward 13, Tan Binh Dst"
+                                    formControlName="address"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.address.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.address.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.address.errors">Street Address is required</div>
 
                                 </div>
@@ -91,9 +93,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="towncity">City</label>
-                                <input type="text" class="form-control" placeholder=""formControlName="city" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.city.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.city.errors"
-                                    class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="Ho Chi Minh" formControlName="city"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.city.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.city.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.city.errors">City is required</div>
 
                                 </div>
@@ -105,9 +107,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" placeholder=""formControlName="phone" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.phone.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.phone.errors"
-                                    class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="0123 456 789" formControlName="phone"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.phone.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.phone.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.phone.errors">Phone is required</div>
 
                                 </div>
@@ -116,9 +118,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="postcodezip">Postcode / ZIP</label>
-                                <input type="text" class="form-control" placeholder=""formControlName="postcode" [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.postcode.errors }">
-                                <div *ngIf="submitted && formCheckoutControls.postcode.errors"
-                                    class="invalid-feedback">
+                                <input type="text" class="form-control" placeholder="700000" formControlName="postcode"
+                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.postcode.errors }">
+                                <div *ngIf="submitted && formCheckoutControls.postcode.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.postcode.errors">Postcode / ZIP is required</div>
 
                                 </div>
@@ -127,71 +129,95 @@
 
 
                     </div>
-                </form><!-- END -->
-            </div>
-            <div class="col-xl-5">
-                <div class="row mt-5 pt-3">
-                    <div class="col-md-12 d-flex mb-5">
-                        <div class="cart-detail cart-total p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Cart Total</h3>
-                            <p class="d-flex">
-                                <span>Subtotal</span>
-                                <span>$20.60</span>
-                            </p>
-                            <p class="d-flex">
-                                <span>Delivery</span>
-                                <span>$0.00</span>
-                            </p>
-                            <p class="d-flex">
-                                <span>Discount</span>
-                                <span>$3.00</span>
-                            </p>
-                            <hr>
-                            <p class="d-flex total-price">
-                                <span>Total</span>
-                                <span>$17.60</span>
-                            </p>
+                </div>
+                <div class="col-xl-5">
+                    <div class="row mt-5 pt-3">
+                        <div class="col-md-12 d-flex mb-5">
+                            <div class="cart-detail cart-total p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Cart Total</h3>
+                                <p class="d-flex">
+                                    <span>Subtotal</span>
+                                    <span>$20.60</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Delivery</span>
+                                    <span>$0.00</span>
+                                </p>
+                                <p class="d-flex">
+                                    <span>Discount</span>
+                                    <span>$3.00</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span>$17.60</span>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="cart-detail p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Payment Method</h3>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Direct Bank
-                                            Tranfer</label>
+                        <div class="col-md-12">
+                            <div class="cart-detail p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Payment Method</h3>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" checked="checked" formControlName="paymentMethod"
+                                                    class="mr-2" value="Credit / Debit Card"
+                                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.paymentMethod.errors }">
+                                                Credit / Debit Card</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" formControlName="paymentMethod" class="mr-2"
+                                                    value="Cash on Delivery"
+                                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.paymentMethod.errors }">
+                                                Cash on Delivery</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="radio">
+                                            <label><input type="radio" formControlName="paymentMethod" class="mr-2"
+                                                    value="Paypal"
+                                                    [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.paymentMethod.errors }">
+                                                Paypal</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="" class="mr-2"> I have read and accept the
-                                            terms and conditions</label>
+                                <div *ngIf="submitted && formCheckoutControls.paymentMethod.errors" class="" style="color:red">
+                                    <div *ngIf="formCheckoutControls.paymentMethod.errors">A payment method is required
                                     </div>
+
                                 </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="checkbox">
+                                            <input type="checkbox" formControlName="acceptTermConditions" class="mr-2"
+                                                [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.acceptTermConditions.errors}">
+                                            I have read and accept the
+                                            terms and conditions
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div *ngIf="submitted && formCheckoutControls.acceptTermConditions.errors" class="" style="color:red">
+                                    <div *ngIf="formCheckoutControls.acceptTermConditions.errors">Terms and
+                                        conditions must be agreed upon placing order</div>
+
+                                </div>
+
                             </div>
                             <input type="submit" form="checkout-form" value="Place an order"
                                 class="btn btn-primary py-3 px-4">
                         </div>
                     </div>
-                </div>
-            </div> <!-- .col-md-8 -->
-        </div>
+                </div> <!-- .col-md-8 -->
+            </div>
+        </form><!-- END -->
+
     </div>
 </section> <!-- .section -->

@@ -7,7 +7,8 @@ const usersKey = 'quytranfood-cart';
 
 export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = request;
-    let cartItems: any[] =[];
+    let cartItems: any[] = [];
+    let checkoutObject: any = {};
     return handleRoute();
 
     function handleRoute() {
@@ -16,6 +17,8 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
                 return getCartItems();
             case url.endsWith('/cart/add') && method === 'POST':
                 return addToCart();
+            case url.endsWith('/cart/proceedCheckout') && method === 'POST':
+                return storeCheckoutInfo();
             default:
                 // pass through any requests not handled above
                 return next(request);
@@ -30,12 +33,19 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
 
     function addToCart() {
         cartItems = body;
-        window.localStorage.setItem(usersKey, JSON.stringify(cartItems));  
+        window.localStorage.setItem(usersKey, JSON.stringify(cartItems));
         return ok();
     }
 
+    function storeCheckoutInfo() {
+        checkoutObject = body;
+        window.localStorage.setItem('quytranfood-cart-checkout', JSON.stringify(checkoutObject));
+
+        return ok();
+
+    }
     function ok(body?: any) {
-        return of(new HttpResponse({ status: 200, body })); 
+        return of(new HttpResponse({ status: 200, body }));
     }
 
 }

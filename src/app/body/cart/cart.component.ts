@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { first } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from "../../alert/alert.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -34,6 +35,8 @@ export class CartComponent implements OnInit {
       { value: "my", name: "Malaysia", shippingFee: 9.99 },
       { value: "usa", name: "America", shippingFee: 25.69 },
     ];
+
+  checkoutObject: any = {};
   cartSubTotal!: number;
   shippingFee: number = 0.00;
   discountObject!:any;
@@ -43,7 +46,7 @@ export class CartComponent implements OnInit {
   discountPercentage:string = "%";
   grandTotal!: number;
 
-  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService,  private router: Router) {
   }
   ngOnInit(): void {
     this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
@@ -116,5 +119,29 @@ export class CartComponent implements OnInit {
     this.discountOnSubTotal = this.discount * this.cartSubTotal / 100 ;
     this.grandTotal = this.cartSubTotal + this.shippingFee - this.discountOnSubTotal;
     return item;
+  }
+
+  storeCheckoutInfo()
+  {
+    this.checkoutObject.subTotal = this.cartSubTotal;
+    this.checkoutObject.delivery = this.shippingFee;
+    this.checkoutObject.discount = this.discountOnSubTotal;
+    this.checkoutObject.grandTotal = this.grandTotal
+
+    console.log(this.checkoutObject);
+    this.cartService.storeCheckoutInfo(this.checkoutObject).pipe(first()).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/checkout');
+      },
+      error: error => {
+        if (error.hasOwnProperty("error")) {
+          this.alertService.error(error.error.message);
+        }
+        else {
+          this.alertService.error(error);
+
+        }
+      }
+    });
   }
 }

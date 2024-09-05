@@ -35,17 +35,20 @@ export class CheckoutComponent {
       city: ['', Validators.required],
       phone: ['', Validators.required],
       postcode: ['', Validators.required],
-
+      paymentMethod:['',Validators.required],
+      acceptTermConditions: [false,Validators.requiredTrue]
     });
   }
   onCheckoutSubmit()
   {
     this.submitted = true;
+    console.log('submitted')
     if (this.formCheckout.invalid) {     // stop here if form is invalid
       return;
     }
+    console.log(this.formCheckoutControls.paymentMethod.value);
+    console.log(this.formCheckoutControls.acceptTermConditions.value);
 
-    console.log(this.formCheckoutControls.firstName);
   }
 
 }
