@@ -7,12 +7,12 @@ import { first } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-
+    userEmail: string = "";
     private cartItems: any[] = [];
     private cartSubTotal!: number;
     constructor(
         private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
     ) {
 
     }
@@ -114,5 +114,11 @@ export class CartService {
     {
         return this.http.post(`${environment.apiUrl}/cart/proceedCheckout`, checkoutObject);
 
+    }
+
+    getCheckoutInfo()
+    {
+        return this.http.get<any>(`${environment.apiUrl}/checkout`);
+ 
     }
 }

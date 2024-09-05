@@ -6,6 +6,7 @@ import { first } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from "../../alert/alert.component";
 import { Router } from '@angular/router';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-cart',
@@ -46,7 +47,7 @@ export class CartComponent implements OnInit {
   discountPercentage:string = "%";
   grandTotal!: number;
 
-  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService,  private router: Router) {
+  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService,  private router: Router, private accountService: AccountService) {
   }
   ngOnInit(): void {
     this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
@@ -123,25 +124,34 @@ export class CartComponent implements OnInit {
 
   storeCheckoutInfo()
   {
-    this.checkoutObject.subTotal = this.cartSubTotal;
-    this.checkoutObject.delivery = this.shippingFee;
-    this.checkoutObject.discount = this.discountOnSubTotal;
-    this.checkoutObject.grandTotal = this.grandTotal
-
-    console.log(this.checkoutObject);
-    this.cartService.storeCheckoutInfo(this.checkoutObject).pipe(first()).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/checkout');
-      },
-      error: error => {
-        if (error.hasOwnProperty("error")) {
-          this.alertService.error(error.error.message);
+    if(this.accountService.userValue)
+    {
+      this.checkoutObject.subTotal = this.cartSubTotal;
+      this.checkoutObject.delivery = this.shippingFee;
+      this.checkoutObject.discount = this.discountOnSubTotal;
+      this.checkoutObject.grandTotal = this.grandTotal
+      this.checkoutObject.cartItems = this.cartItems;
+      console.log(this.checkoutObject);
+      this.cartService.storeCheckoutInfo(this.checkoutObject).pipe(first()).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/checkout');
+        },
+        error: error => {
+          if (error.hasOwnProperty("error")) {
+            this.alertService.error(error.error.message);
+          }
+          else {
+            this.alertService.error(error);
+  
+          }
         }
-        else {
-          this.alertService.error(error);
+      });
+    }
+    else
+    {
+      this.router.navigateByUrl('/checkout');
 
-        }
-      }
-    });
+    }
+    
   }
 }
