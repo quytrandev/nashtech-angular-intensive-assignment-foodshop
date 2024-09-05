@@ -28,7 +28,7 @@
           <li class="nav-item"><a class="nav-link">|</a></li>
           <li *ngIf="!this.user" class="nav-item"><a style="color:red" routerLink="/login" class="nav-link">Login</a></li>
 
-          <li *ngIf="this.user"class="nav-item"><a class="nav-link">Welcome, {{this.user?.username}}!</a></li>
+          <li *ngIf="this.user"class="nav-item"><a class="nav-link">Welcome, <strong>{{this.user?.username}}!</strong></a></li>
           <li *ngIf="this.user" class="nav-item"><a style="color:red" routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
 
         </ul>

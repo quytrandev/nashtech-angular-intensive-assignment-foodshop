@@ -18,11 +18,11 @@ export class CheckoutComponent {
   taxFeeOnGrandTotal: number = 0.00;
   countries: any[] =
     [
-      { value: "", name: "Choose a country", taxFee: 0.00 },
-      { value: "uk", name: "United Kingdom", taxFee: 11 },
-      { value: "vn", name: "Vietnam", taxFee: 10 },
-      { value: "my", name: "Malaysia", taxFee: 8 },
-      { value: "usa", name: "America", taxFee: 12.5 },
+      { value: "", name: "Choose a country", taxFee: 0.00, shippingFee: 0.00 },
+      { value: "uk", name: "United Kingdom", taxFee: 11, shippingFee: 15.50 },
+      { value: "vn", name: "Vietnam", taxFee: 10, shippingFee: 7.99  },
+      { value: "my", name: "Malaysia", taxFee: 8, shippingFee: 9.99  },
+      { value: "usa", name: "America", taxFee: 12.5, shippingFee: 25.69 },
     ];
     checkoutInfo:any;
 
@@ -65,6 +65,11 @@ export class CheckoutComponent {
     console.log('country change')
     const chosenCountry = this.formCheckoutControls.country.value;    
     const countryObject = this.countries.find(({ value }) => value == chosenCountry)
+    if(this.checkoutInfo.delivery <= 0)
+    {
+      this.checkoutInfo.delivery = countryObject.shippingFee;
+      this.checkoutInfo.grandTotal += this.checkoutInfo.delivery;
+    }
     this.taxFee = countryObject.taxFee;
       this.taxFeeOnGrandTotal = this.taxFee *this.checkoutInfo.subTotal/100;
 

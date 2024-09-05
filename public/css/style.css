@@ -8938,7 +8938,7 @@ h1, h2, h3, h4, h5,
     vertical-align: middle;
     padding: 40px 10px;
     border: 1px solid transparent !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important; }
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) }
     .table tbody tr td.product-remove a {
       bordeR: 1px solid rgba(0, 0, 0, 0.1);
       padding: 4px 10px;

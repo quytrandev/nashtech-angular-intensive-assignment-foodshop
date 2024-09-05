@@ -8,6 +8,7 @@ import { LoginComponent } from './body/account/login/login.component';
 import { RegisterComponent } from './body/account/register/register.component';
 import { AuthGuard } from './backend-less/auth.guard';
 import { NotfoundComponent } from './body/notfound/notfound.component';
+import { OrderComponent } from './body/order/order.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,11 @@ export const routes: Routes = [
         path:'checkout',
         component: CheckoutComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path:'order',
+        component: OrderComponent,
+        //canActivate: [AuthGuard]
     },
     {
         path:'login',
