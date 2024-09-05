@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
   discountOnSubTotal: number = 0.00;
   discountPercentage:string = "%";
   grandTotal!: number;
+  invalidCouponError:string ="";
 
   constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService,  private router: Router, private accountService: AccountService) {
   }
@@ -89,6 +90,8 @@ export class CartComponent implements OnInit {
 
     if (!this.discountObject) {
       this.discount = 0;
+      this.discountPercentage = "%";  
+      this.invalidCouponError = "The entered coupon code is invalid, please try again";
     }
     else 
     {

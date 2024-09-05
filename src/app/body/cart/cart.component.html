@@ -74,7 +74,10 @@
               <div *ngIf="isCouponSubmitted && formCouponControls.coupon.errors" class="invalid-feedback">
                 <div *ngIf="formCouponControls.coupon.errors">A coupon code is required</div>
 
+
               </div>
+              <div *ngIf="invalidCouponError" style="color:red">{{invalidCouponError}}</div>
+
             </div>
             <input type="submit" value="Apply coupon" class="btn btn-primary py-3 px-4">
 
@@ -109,15 +112,15 @@
           <h3>Cart Totals</h3>
           <p class="d-flex">
             <span>Subtotal</span>
-            <span>${{calculateCartSubTotal() | number:'1.2-2' }}</span>
+            <span>+ ${{calculateCartSubTotal() | number:'1.2-2' }}</span>
           </p>
           <p class="d-flex">
             <span>Delivery</span>
-            <span>${{shippingFee| number:'1.2-2' }}</span>
+            <span>+ ${{shippingFee| number:'1.2-2' }}</span>
           </p>
           <p class="d-flex">
             <span>Discount ({{discountPercentage}})</span>
-            <span>${{discountOnSubTotal| number:'1.2-2' }}</span>
+            <span>- ${{discountOnSubTotal| number:'1.2-2' }}</span>
           </p>
           <hr>
           <p class="d-flex total-price">

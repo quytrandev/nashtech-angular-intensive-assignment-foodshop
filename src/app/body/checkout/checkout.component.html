@@ -44,7 +44,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="emailaddress">Email Address</label>
-                                <input formControlName="email" type="email" class="form-control" placeholder="quy.trantan@nashtechglobal.com"
+                                <input formControlName="email" type="email" class="form-control" placeholder="quy.trantan@nashtechglobal.com" value="{{checkoutInfo.email}}"
                                     [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.email.errors }">
                                 <div *ngIf="submitted && formCheckoutControls.email.errors" class="invalid-feedback">
                                     <div *ngIf="formCheckoutControls.email.errors">Email is required</div>
@@ -74,10 +74,10 @@
                                 <label for="country">Country</label>
                                 <div class="select-wrap">
                                     <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select formControlName="country" class="form-control text-left px-3"
+                                    <select (change)="onCountryChange()" formControlName="country" class="form-control text-left px-3"
                                         name="countries" id="countries"
                                         [ngClass]="{ 'is-invalid': submitted && formCheckoutControls.country.errors }">
-                                        <option *ngFor="let country of countries" value="{{country.value}}">
+                                        <option  *ngFor="let country of countries" value="{{country.value}}">
                                             {{country.name}}</option>
 
                                     </select>
@@ -137,20 +137,26 @@
                                 <h3 class="billing-heading mb-4">Cart Total</h3>
                                 <p class="d-flex">
                                     <span>Subtotal</span>
-                                    <span>$20.60</span>
+                                    <span>+ ${{checkoutInfo.subTotal | number:'1.2-2' }}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span>Delivery</span>
-                                    <span>$0.00</span>
+                                    <span>+ ${{checkoutInfo.delivery | number:'1.2-2' }}</span>
                                 </p>
+                                
                                 <p class="d-flex">
                                     <span>Discount</span>
-                                    <span>$3.00</span>
+                                    <span>- ${{checkoutInfo.discount | number:'1.2-2' }}</span>
                                 </p>
+                                
                                 <hr>
+                                <p class="d-flex">
+                                    <span>Regional tax ({{taxFee}}%)</span>
+                                    <span>+ ${{taxFeeOnGrandTotal | number:'1.2-2' }}</span>
+                                  </p>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span>$17.60</span>
+                                    <span>${{checkoutInfo.grandTotal | number:'1.2-2' }}</span>
                                 </p>
                             </div>
                         </div>

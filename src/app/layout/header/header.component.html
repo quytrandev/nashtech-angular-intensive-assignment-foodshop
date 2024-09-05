@@ -24,10 +24,12 @@
           <li class="nav-item active"><a routerLink="/home" class="nav-link">Home</a></li> 
           <li class="nav-item"><a routerLink="/shop" class="nav-link">Shop</a></li>
           <li class="nav-item"><a routerLink="/wishlist" class="nav-link">Wishlist</a></li>
-          <li class="nav-item cta cta-colored"><a routerLink="/cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-          <li *ngIf="!this.user" class="nav-item"><a routerLink="/login" class="nav-link">Login</a></li>
+          <li class="nav-item cta cta-colored"><a routerLink="/cart" class="nav-link"><span class="icon-shopping_cart"></span>Cart</a></li>
+          <li class="nav-item"><a class="nav-link">|</a></li>
+          <li *ngIf="!this.user" class="nav-item"><a style="color:red" routerLink="/login" class="nav-link">Login</a></li>
+
           <li *ngIf="this.user"class="nav-item"><a class="nav-link">Welcome, {{this.user?.username}}!</a></li>
-          <li *ngIf="this.user" class="nav-item"><a routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
+          <li *ngIf="this.user" class="nav-item"><a style="color:red" routerLink="/login" (click)="logout()" class="nav-link">Logout</a></li>
 
         </ul>
       </div>

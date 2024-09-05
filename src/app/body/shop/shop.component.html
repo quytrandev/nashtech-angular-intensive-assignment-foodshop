@@ -24,7 +24,7 @@
 
             <div *ngFor="let product of products" class="col-md-6 col-lg-3 ftco-animate">
                 <div class="product">
-                    <a href="{{product.id}}" class="img-prod"><img class="img-fluid" src="{{product.photoSrc}}"
+                    <a  class="img-prod"><img class="img-fluid" src="{{product.photoSrc}}"
                             alt="Colorlib Template">
                         <span *ngIf="product.isOnSale" class="status">-{{product.salePercentage}}</span>
                         <div class="overlay"></div>

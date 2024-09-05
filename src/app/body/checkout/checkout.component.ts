@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -12,16 +14,21 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class CheckoutComponent {
   formCheckout!: FormGroup;
   submitted = false;
+  taxFee!:number;
+  taxFeeOnGrandTotal: number = 0.00;
   countries: any[] =
     [
       { value: "", name: "Choose a country", taxFee: 0.00 },
       { value: "uk", name: "United Kingdom", taxFee: 11 },
-      { value: "vn", name: "Vietnam", taxFee: 5 },
+      { value: "vn", name: "Vietnam", taxFee: 10 },
       { value: "my", name: "Malaysia", taxFee: 8 },
       { value: "usa", name: "America", taxFee: 12.5 },
     ];
+    checkoutInfo:any;
+
   constructor(
     private formBuilder: FormBuilder,
+    private cartService:CartService
   ) { }
   get formCheckoutControls() { return this.formCheckout.controls; }
 
@@ -38,6 +45,8 @@ export class CheckoutComponent {
       paymentMethod:['',Validators.required],
       acceptTermConditions: [false,Validators.requiredTrue]
     });
+
+    this.getCheckoutInfo();
   }
   onCheckoutSubmit()
   {
@@ -48,6 +57,22 @@ export class CheckoutComponent {
     }
     console.log(this.formCheckoutControls.paymentMethod.value);
     console.log(this.formCheckoutControls.acceptTermConditions.value);
+
+  }
+
+  onCountryChange()
+  {
+    console.log('country change')
+    const chosenCountry = this.formCheckoutControls.country.value;    
+    const countryObject = this.countries.find(({ value }) => value == chosenCountry)
+    this.taxFee = countryObject.taxFee;
+      this.taxFeeOnGrandTotal = this.taxFee *this.checkoutInfo.subTotal/100;
+
+      this.checkoutInfo.grandTotal +=this.taxFeeOnGrandTotal;
+  }
+  getCheckoutInfo()
+  {
+    this.cartService.getCheckoutInfo().pipe(first()).subscribe(info => this.checkoutInfo = info);
 
   }
 

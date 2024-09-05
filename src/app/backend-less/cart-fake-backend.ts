@@ -72,8 +72,6 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
 
     function storeCheckoutInfo() {
         checkoutObject = body;
-        checkoutObject.email = userEmail;
-
         window.localStorage.setItem(checkoutLocalStorageKey + userEmail, JSON.stringify(checkoutObject));
 
 
