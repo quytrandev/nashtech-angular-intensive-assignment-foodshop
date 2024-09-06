@@ -1,8 +1,10 @@
 # NashtechAngularFoodShop
 
 This project was generated with [Angular CLI](https://github.comm/angular/angular-cli) version 18.2.1.
-- [x]: available/implemented feature
-- []: unavailable/not implemented feature 
+- [x] available/implemented feature
+- [] unavailable/not implemented feature 
+
+___
 
 # Exercise 1: Authenthication
 
@@ -33,7 +35,7 @@ Create a basic authentication system in Angular that allows users to register, l
 - [x] If a user tries to access the dashboard without being logged in, redirect them to the login page.
 ### 6.Logout:
 - [x] Add a logout button to the navigation bar that clears the authentication token from localStorage and redirects the user to the login page.
-
+___
 # Exercise 2: State Management
 The purpose of this document is to outline the functional and non-functional requirements for the Shopping Cart module of the e-commerce platform. This module will allow users to select and manage products they wish to purchase.
 
@@ -74,6 +76,7 @@ Dashboard( Exercise 1)
 ## 6.Session Persistence:
 - [x] The cart should persist across user sessions, retaining its contents even if the user logs out and logs back in( suggest to store added items in localStorage)
 
+___
 ```
 ## Development server
 
