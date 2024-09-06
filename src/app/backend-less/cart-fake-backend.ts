@@ -105,6 +105,8 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
     function clearCartUponCheckout()
     {
         window.localStorage.removeItem(cartLocalStorageKey + userEmail);
+        window.localStorage.removeItem(cartLocalStorageKey);
+
         return ok();
     }
 }

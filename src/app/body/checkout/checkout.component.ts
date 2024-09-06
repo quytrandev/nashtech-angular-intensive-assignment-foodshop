@@ -89,6 +89,7 @@ export class CheckoutComponent {
     this.checkoutInfo.city = this.formCheckoutControls.city.value;
     this.checkoutInfo.phone = this.formCheckoutControls.phone.value;
     this.checkoutInfo.postcode = this.formCheckoutControls.postcode.value;
+    this.checkoutInfo.regionalTaxPercentage = this.taxFee;
     this.checkoutInfo.regionalTax = this.taxFeeOnSubTotal;
     this.checkoutInfo.paymentMethod = this.formCheckoutControls.paymentMethod.value;
     this.checkoutInfo.grandTotal = this.tempGrandTotal;

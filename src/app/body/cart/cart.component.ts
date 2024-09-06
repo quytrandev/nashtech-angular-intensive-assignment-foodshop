@@ -106,8 +106,11 @@ export class CartComponent implements OnInit {
   }
 
   deleteCartItem(item: any) {
-    this.cartService.deleteCartItem(item).pipe(first()).subscribe({});
-    this.initCartItems();
+    if(window.confirm('Are sure you want to delete this item ?')){
+      this.cartService.deleteCartItem(item).pipe(first()).subscribe({});
+      this.initCartItems();
+    }
+    
   }
   updateQuantity(item: any, event: any) {
     const quantity = event.target.value;
