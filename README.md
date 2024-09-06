@@ -1,9 +1,6 @@
 # NashtechAngularFoodShop
 
 This project was generated with [Angular CLI](https://github.comm/angular/angular-cli) version 18.2.1.
-- [x] available/implemented feature
-- [ ] unavailable/not implemented feature 
-
 ___
 # Available Screens
 ## Login
@@ -35,6 +32,8 @@ ___
 
 ___
 
+- [x] available/implemented feature
+- [ ] unavailable/not implemented feature 
 # Exercise 1: Authenthication
 
 ## 1.Objectives:
