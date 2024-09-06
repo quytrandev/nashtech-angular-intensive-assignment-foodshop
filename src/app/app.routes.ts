@@ -40,7 +40,7 @@ export const routes: Routes = [
     {
         path:'order',
         component: OrderComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },
     {
         path:'login',

@@ -7,6 +7,7 @@ import { AccountService } from '../services/account.service';
 
 const cartLocalStorageKey = 'quytranfood-cart';
 const checkoutLocalStorageKey = 'quytranfood-cart-checkout';
+const orderDetailsLocalStorageKey = 'quytranfood-cart-orderdetails';
 
 export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const { url, method, headers, body } = request;
@@ -24,8 +25,14 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
                 return addToCart();
             case url.endsWith('/cart/proceedCheckout') && method === 'POST':
                 return storeCheckoutInfo();
+                case url.endsWith('/cart/clear') && method === 'DELETE':
+                return clearCartUponCheckout();
             case url.endsWith('/checkout') && method === 'GET':
                 return getCheckoutInfo();
+            case url.endsWith('/checkout/orderDetails') && method === 'POST':
+                return storeOrderDetails();
+            case url.endsWith('/order') && method === 'GET':
+                return getOrderDetails();
 
             default:
                 // pass through any requests not handled above
@@ -39,8 +46,7 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
             const userCartItems = JSON.parse(window.localStorage.getItem(cartLocalStorageKey + userEmail) || '[]');
             const previousCartItems = JSON.parse(window.localStorage.getItem(cartLocalStorageKey) || '[]');
 
-            if (userCartItems.length == 0 && previousCartItems.length>0)
-            {
+            if (userCartItems.length == 0 && previousCartItems.length > 0) {
                 //window.localStorage.removeItem(cartLocalStorageKey);
                 window.localStorage.setItem(cartLocalStorageKey + userEmail, JSON.stringify(previousCartItems));
 
@@ -73,18 +79,32 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
     function storeCheckoutInfo() {
         checkoutObject = body;
         window.localStorage.setItem(checkoutLocalStorageKey + userEmail, JSON.stringify(checkoutObject));
-
-
         return ok();
 
     }
 
     function getCheckoutInfo() {
-        const jsonObject = JSON.parse(window.localStorage.getItem(checkoutLocalStorageKey+userEmail) || '[]');
+        const jsonObject = JSON.parse(window.localStorage.getItem(checkoutLocalStorageKey + userEmail) || '[]');
         return ok(jsonObject);
     }
     function ok(body?: any) {
         return of(new HttpResponse({ status: 200, body }));
     }
 
+   
+    function storeOrderDetails()
+    {
+        checkoutObject = body;
+        window.localStorage.setItem(orderDetailsLocalStorageKey + userEmail, JSON.stringify(checkoutObject));
+        return ok();
+    }
+    function getOrderDetails() {
+        const jsonObject = JSON.parse(window.localStorage.getItem(orderDetailsLocalStorageKey + userEmail) || '[]');
+        return ok(jsonObject);
+    }
+    function clearCartUponCheckout()
+    {
+        window.localStorage.removeItem(cartLocalStorageKey + userEmail);
+        return ok();
+    }
 }

@@ -116,9 +116,24 @@ export class CartService {
 
     }
 
+    storeOrderDetails(checkoutObject:any)
+    {
+        return this.http.post(`${environment.apiUrl}/checkout/orderDetails`, checkoutObject);
+
+    }
     getCheckoutInfo()
     {
         return this.http.get<any>(`${environment.apiUrl}/checkout`);
  
+    }
+
+    getOrderDetails()
+    {
+        return this.http.get<any>(`${environment.apiUrl}/order`);
+
+    }
+    clearCart()
+    {
+        return this.http.delete(`${environment.apiUrl}/cart/clear`);
     }
 }

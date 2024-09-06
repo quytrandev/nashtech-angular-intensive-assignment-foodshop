@@ -141,7 +141,7 @@
                                 </p>
                                 <p class="d-flex">
                                     <span>Delivery</span>
-                                    <span>+ ${{checkoutInfo.delivery | number:'1.2-2' }}</span>
+                                    <span>+ ${{tempDeliveryFee | number:'1.2-2' }}</span>
                                 </p>
                                 
                                 <p class="d-flex">
@@ -152,11 +152,11 @@
                                 <hr>
                                 <p class="d-flex">
                                     <span>Regional tax ({{taxFee}}%)</span>
-                                    <span>+ ${{taxFeeOnGrandTotal | number:'1.2-2' }}</span>
+                                    <span>+ ${{taxFeeOnSubTotal | number:'1.2-2' }}</span>
                                   </p>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span>${{checkoutInfo.grandTotal | number:'1.2-2' }}</span>
+                                    <span>${{tempGrandTotal| number:'1.2-2' }}</span>
                                 </p>
                             </div>
                         </div>
