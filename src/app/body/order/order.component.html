@@ -9,7 +9,7 @@
                     <h2 class="mb-4">Summary</h2>
                     <div class="cart-detail cart-total p-3 p-md-4" style="border-color:#000">
                         <div class="row p-3">
-                            <div class="cart-detail p-md-4" style="border-color:#82ae46">
+                            <div class="cart-detail p-4 col-md-6" style="border-color:#82ae46;border-right:none">
                                 <h3 class="mb-4"><strong>Billing Information</strong></h3>
                                 <hr>
                                 <div class="text-right">
@@ -53,7 +53,36 @@
                                 </p>
                             </div>
                             </div>
+                            <div class="cart-detail cart-total p-4 col-md-6" style="border-color:#82ae46">
+                                <h3 class="mb-4"><strong>Cart Total</strong></h3>
+                                <hr>
+                                <div class="text-right">
 
+                                <p class="d-flex">
+                                    <span><strong>Subtotal</strong></span>
+                                    <span>${{orderDetails.subTotal| number:'1.2-2'}} </span>
+                                </p>
+                                <p class="d-flex">
+                                    <span><strong>Delivery</strong></span>
+                                    <span>${{orderDetails.delivery| number:'1.2-2'}}</span>
+                                </p>
+
+                                <p class="d-flex">
+                                    <span><strong>Discount</strong></span>
+                                    <span>- ${{orderDetails.discount| number:'1.2-2'}}</span>
+                                </p>
+
+                                <p class="d-flex">
+                                    <span><strong>Regional tax ({{orderDetails.regionalTaxPercentage}}%)</strong></span>
+                                    <span>+ ${{orderDetails.regionalTax| number:'1.2-2'}}</span>
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span><strong>Total</strong></span>
+                                    <span><strong>${{orderDetails.grandTotal| number:'1.2-2'}}</strong></span>
+                                </p>
+                            </div>
+                        </div>   
 
                         </div>
                         <div class="row p-3">
@@ -85,40 +114,7 @@
                             </div>
 
                         </div>
-                        <div class="row p-3" >
 
-                            <div class="cart-detail cart-total p-3 p-md-4" style="border-color:#82ae46">
-                                <h3 class="mb-4"><strong>Cart Total</strong></h3>
-                                <hr>
-                                <div class="text-right">
-
-                                <p class="d-flex">
-                                    <span><strong>Subtotal</strong></span>
-                                    <span>${{orderDetails.subTotal| number:'1.2-2'}} </span>
-                                </p>
-                                <p class="d-flex">
-                                    <span><strong>Delivery</strong></span>
-                                    <span>${{orderDetails.delivery| number:'1.2-2'}}</span>
-                                </p>
-
-                                <p class="d-flex">
-                                    <span><strong>Discount</strong></span>
-                                    <span>- ${{orderDetails.discount| number:'1.2-2'}}</span>
-                                </p>
-
-                                <p class="d-flex">
-                                    <span><strong>Regional tax ({{orderDetails.regionalTaxPercentage}}%)</strong></span>
-                                    <span>+ ${{orderDetails.regionalTax| number:'1.2-2'}}</span>
-                                </p>
-                                <hr>
-                                <p class="d-flex total-price">
-                                    <span><strong>Total</strong></span>
-                                    <span><strong>${{orderDetails.grandTotal| number:'1.2-2'}}</strong></span>
-                                </p>
-                            </div>
-                        </div>
-
-                        </div>
                     </div>
                 </div>
             </div>
