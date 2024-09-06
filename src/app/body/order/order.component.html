@@ -4,52 +4,54 @@
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <div class="cart-detail cart-total p-3 p-md-4" style="border-color:#000">
 
-                    <span class="subheading"><strong>Order Details</strong></span>
+                    <span class="subheading"><strong>Order Details #Q7F00D{{orderNumber}}</strong></span>
+                    <p>Submitted date: {{submittedDate | date:'dd-MMMM-yyyy'}}</p>
                     <h2 class="mb-4">Summary</h2>
                     <div class="cart-detail cart-total p-3 p-md-4" style="border-color:#000">
                         <div class="row p-3">
                             <div class="cart-detail p-md-4" style="border-color:#82ae46">
                                 <h3 class="mb-4"><strong>Billing Information</strong></h3>
                                 <hr>
+                                <div class="text-right">
                                 <p class="d-flex">
                                     <span><strong>First Name</strong></span>
-                                    <span>Quy</span>
+                                    <span>{{orderDetails.firstName}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Last Name</strong></span>
-                                    <span>Tran</span>
+                                    <span>{{orderDetails.lastName}}</span>
                                 </p>
 
                                 <p class="d-flex">
                                     <span><strong>Email Address</strong></span>
-                                    <span>quyagmail.com</span>
+                                    <span>{{orderDetails.email}}</span>
                                 </p>
 
                                 <p class="d-flex">
                                     <span><strong>Street Address</strong></span>
-                                    <span>364 Cong Hoa</span>
+                                    <span>{{orderDetails.address}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Country</strong></span>
-                                    <span>Vietnam</span>
+                                    <span>{{orderDetails.country}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>City</strong></span>
-                                    <span>HCM</span>
+                                    <span>{{orderDetails.city}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Phone</strong></span>
-                                    <span>0123456789</span>
+                                    <span>{{orderDetails.phone}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Postcode / ZIP</strong></span>
-                                    <span>7000000</span>
+                                    <span>{{orderDetails.postcode}}</span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Payment Method</strong></span>
-                                    <span>Cash on delivery</span>
+                                    <span>{{orderDetails.paymentMethod}}</span>
                                 </p>
-
+                            </div>
                             </div>
 
 
@@ -61,33 +63,22 @@
                                 <hr>
 
                                 <table class="table">
-
+                                   
                                     <tbody>
-                                        <tr>
+                                        <tr *ngFor="let item of orderDetails.cartItems">
                                             <td class="image-prod">
-                                                <div class="img" style="background-image:url(images/product-3.jpg);">
+                                                <div class="img" style="background-image:url('{{item.photoSrc}}');">
                                                 </div>
                                             </td>
 
                                             <td class="product-name">
-                                                <h3>Bell Pepper x 2</h3>
+                                                <h3>{{item.productName}} x {{item.quantity}}</h3>
                                             </td>
 
-                                            <td class="total">$4.90</td>
+                                            <td class="total">${{item.total | number:'1.2-2'}}</td>
                                         </tr><!-- END TR-->
 
-                                        <tr class="text-center">
-                                            <td class="image-prod">
-                                                <div class="img" style="background-image:url(images/product-3.jpg);">
-                                                </div>
-                                            </td>
-
-                                            <td class="product-name">
-                                                <h3>Bell Pepper x 2</h3>
-                                            </td>
-
-                                            <td class="total">$4.90</td>
-                                        </tr><!-- END TR-->
+                                        
 
                                     </tbody>
                                 </table>
@@ -99,31 +90,34 @@
                             <div class="cart-detail cart-total p-3 p-md-4" style="border-color:#82ae46">
                                 <h3 class="mb-4"><strong>Cart Total</strong></h3>
                                 <hr>
+                                <div class="text-right">
 
                                 <p class="d-flex">
                                     <span><strong>Subtotal</strong></span>
-                                    <span><strong>+ $44</strong></span>
+                                    <span>${{orderDetails.subTotal| number:'1.2-2'}} </span>
                                 </p>
                                 <p class="d-flex">
                                     <span><strong>Delivery</strong></span>
-                                    <span><strong>+ $44</strong></span>
+                                    <span>${{orderDetails.delivery| number:'1.2-2'}}</span>
                                 </p>
 
                                 <p class="d-flex">
                                     <span><strong>Discount</strong></span>
-                                    <span><strong>- $44</strong></span>
+                                    <span>- ${{orderDetails.discount| number:'1.2-2'}}</span>
                                 </p>
 
                                 <p class="d-flex">
                                     <span><strong>Regional tax ({{44}}%)</strong></span>
-                                    <span><strong>+ $44</strong></span>
+                                    <span>+ ${{orderDetails.regionalTax| number:'1.2-2'}}</span>
                                 </p>
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span><strong>Total</strong></span>
-                                    <span><strong>$44</strong></span>
+                                    <span><strong>${{orderDetails.grandTotal| number:'1.2-2'}}</strong></span>
                                 </p>
                             </div>
+                        </div>
+
                         </div>
                     </div>
                 </div>
