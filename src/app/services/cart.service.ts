@@ -3,16 +3,18 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environment/environment';
 import { first } from 'rxjs';
+import { AlertService } from './alert.service';
 
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
     userEmail: string = "";
     private cartItems: any[] = [];
+    private wishlistItems: any[] = [];
     private cartSubTotal!: number;
     constructor(
-        private router: Router,
         private http: HttpClient,
+        private alertService: AlertService
     ) {
 
     }
@@ -21,9 +23,14 @@ export class CartService {
     addToCart(product: any) {
         this.initCartItems();
         const existingProduct = this.cartItems.find(({ id }) => id === product.id);
+        this.existingProductLogic(existingProduct,product,this.cartItems);
+        return this.updateCart(this.cartItems);
+    }
 
-
-        if (existingProduct) {
+    existingProductLogic(existingProduct:any, product:any, itemsArray:any[])
+    {
+        if (existingProduct) 
+        {
             existingProduct.quantity += 1;
             if (product.isOnSale) {
                 const price = product.priceAfterSale;
@@ -34,30 +41,26 @@ export class CartService {
                 const price = product.priceBeforeSale
                 existingProduct.total = price * existingProduct.quantity
 
-            }            
+            }
         }
         else {
             if (product.isOnSale) {
                 const price = product.priceAfterSale;
-                this.cartItems.push({ ...product, quantity: 1, total: price});
+                itemsArray.push({ ...product, quantity: 1, total: price });
 
             }
             else {
                 const price = product.priceBeforeSale
-                this.cartItems.push({ ...product, quantity: 1, total: price });
-
-
-            }            
+                itemsArray.push({ ...product, quantity: 1, total: price });
+            }
         }
-
-        return this.updateCart(this.cartItems);
     }
     initCartItems() {
         this.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
 
     }
     updateCart(cartItems: any[]) {
-        return this.http.post(`${environment.apiUrl}/cart/add`, this.cartItems);
+        return this.http.post(`${environment.apiUrl}/cart/add`, cartItems);
     }
     getCartItems() {
         return this.http.get<any[]>(`${environment.apiUrl}/cart`);
@@ -110,30 +113,60 @@ export class CartService {
         }, 0)
     }
 
-    storeCheckoutInfo(checkoutObject:any)
-    {
+    storeCheckoutInfo(checkoutObject: any) {
         return this.http.post(`${environment.apiUrl}/cart/proceedCheckout`, checkoutObject);
 
     }
 
-    storeOrderDetails(checkoutObject:any)
-    {
+    storeOrderDetails(checkoutObject: any) {
         return this.http.post(`${environment.apiUrl}/checkout/orderDetails`, checkoutObject);
 
     }
-    getCheckoutInfo()
-    {
+    getCheckoutInfo() {
         return this.http.get<any>(`${environment.apiUrl}/checkout`);
- 
+
     }
 
-    getOrderDetails()
-    {
+    getOrderDetails() {
         return this.http.get<any>(`${environment.apiUrl}/order`);
 
     }
-    clearCart()
-    {
+    clearCart() {
         return this.http.delete(`${environment.apiUrl}/cart/clear`);
+    }
+
+    getWishlistItems() {
+        return this.http.get<any>(`${environment.apiUrl}/wishlist`);
+
+    }
+    addToWishlist(product: any) {
+        this.getWishlistItems().pipe(first()).subscribe(products => this.wishlistItems = products);
+        //
+        const existingProduct = this.wishlistItems.find(({ id }) => id === product.id);
+        this.existingProductLogic(existingProduct,product,this.wishlistItems);
+
+        return this.updateWishlist(this.wishlistItems);
+    }
+
+    moveWishlistItemToCart(product: any) {
+        //cart process
+        this.initCartItems();
+        const existingProduct = this.cartItems.find(({ id }) => id === product.id);
+        this.existingProductLogic(existingProduct,product,this.cartItems);
+        this.updateCart(this.cartItems).pipe(first()).subscribe();
+        //wishlist process
+        this.wishlistItems = this.wishlistItems.filter((i) => i.id !== product.id);
+        return this.updateWishlist(this.wishlistItems);
+
+    }
+
+    deleteWishlistItem(product: any) {
+        this.getWishlistItems().pipe(first()).subscribe(products => this.wishlistItems = products);
+        this.wishlistItems = this.wishlistItems.filter((i) => i.id !== product.id);
+        return this.updateWishlist(this.wishlistItems);
+    }
+    updateWishlist(wishlistItems: any) {
+        return this.http.post(`${environment.apiUrl}/wishlist/add`, wishlistItems);
+
     }
 }

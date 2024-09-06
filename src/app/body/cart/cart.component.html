@@ -10,13 +10,17 @@
 <section class="ftco-section ftco-cart">
   <div class="container">
     <div class="row">
+
       <div class="col-md-12 ftco-animate">
+        <app-alert></app-alert>
+
         <div class="cart-list">
           <table class="table">
             <thead class="thead-primary">
               <tr class="text-center">
                 <th>&nbsp;</th>
-                <th>&nbsp;</th>
+                <th>&nbsp;</th>              
+
                 <th>Product name</th>
                 <th>Price</th>
                 <th>Quantity</th>
@@ -25,9 +29,11 @@
             </thead>
 
             <tbody>
-
               <tr class="text-center" *ngFor="let item of cartItems">
-                <td class="product-remove"><a (click)="deleteCartItem(item)"><span class="ion-ios-close"></span></a>
+
+                <td class="product-remove">
+                  <a (click)="deleteCartItem(item)"title="Remove"><span class="ion-ios-close" title="Remove"></span></a>
+                  <a (click)="addToWishlist(item)"title="Add to wishlist"><span class="ion-ios-bookmark"></span></a>
                 </td>
 
                 <td class="image-prod">

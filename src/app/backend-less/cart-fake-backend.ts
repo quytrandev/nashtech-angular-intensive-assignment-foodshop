@@ -7,6 +7,7 @@ import { AccountService } from '../services/account.service';
 
 const cartLocalStorageKey = 'quytranfood-cart';
 const checkoutLocalStorageKey = 'quytranfood-cart-checkout';
+const wishlistLocalStorageKey = 'quytranfood-cart-wishlist';
 const orderDetailsLocalStorageKey = 'quytranfood-cart-orderdetails';
 
 export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
@@ -25,7 +26,7 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
                 return addToCart();
             case url.endsWith('/cart/proceedCheckout') && method === 'POST':
                 return storeCheckoutInfo();
-                case url.endsWith('/cart/clear') && method === 'DELETE':
+            case url.endsWith('/cart/clear') && method === 'DELETE':
                 return clearCartUponCheckout();
             case url.endsWith('/checkout') && method === 'GET':
                 return getCheckoutInfo();
@@ -33,6 +34,10 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
                 return storeOrderDetails();
             case url.endsWith('/order') && method === 'GET':
                 return getOrderDetails();
+            case url.endsWith('/wishlist') && method === 'GET':
+                return getWishlistItems();
+            case url.endsWith('/wishlist/add') && method === 'POST':
+                return addToWishlist();
 
             default:
                 // pass through any requests not handled above
@@ -41,6 +46,7 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
     }
 
     // route functions
+
     function getCartItems() {
         if (userEmail) {
             const userCartItems = JSON.parse(window.localStorage.getItem(cartLocalStorageKey + userEmail) || '[]');
@@ -91,9 +97,8 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
         return of(new HttpResponse({ status: 200, body }));
     }
 
-   
-    function storeOrderDetails()
-    {
+
+    function storeOrderDetails() {
         checkoutObject = body;
         window.localStorage.setItem(orderDetailsLocalStorageKey + userEmail, JSON.stringify(checkoutObject));
         return ok();
@@ -102,11 +107,28 @@ export function CartFakeBackendInterceptor(request: HttpRequest<any>, next: Http
         const jsonObject = JSON.parse(window.localStorage.getItem(orderDetailsLocalStorageKey + userEmail) || '[]');
         return ok(jsonObject);
     }
-    function clearCartUponCheckout()
-    {
+    function clearCartUponCheckout() {
         window.localStorage.removeItem(cartLocalStorageKey + userEmail);
         window.localStorage.removeItem(cartLocalStorageKey);
 
+        return ok();
+    }
+
+    function getWishlistItems() {
+        if (userEmail) {
+            const jsonObject = JSON.parse(window.localStorage.getItem(wishlistLocalStorageKey + userEmail) || '[]');
+            return ok(jsonObject);
+        }
+        const jsonObject = JSON.parse('[]');
+        return ok(jsonObject);
+
+    }
+    function addToWishlist() {
+        cartItems = body;
+        if (userEmail) {
+            window.localStorage.setItem(wishlistLocalStorageKey + userEmail, JSON.stringify(cartItems));
+
+        }
         return ok();
     }
 }

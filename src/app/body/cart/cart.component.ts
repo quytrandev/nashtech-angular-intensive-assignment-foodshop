@@ -40,15 +40,15 @@ export class CartComponent implements OnInit {
   checkoutObject: any = {};
   cartSubTotal!: number;
   shippingFee: number = 0.00;
-  discountObject!:any;
+  discountObject!: any;
 
   discount: number = 0.00;
   discountOnSubTotal: number = 0.00;
-  discountPercentage:string = "%";
+  discountPercentage: string = "%";
   grandTotal!: number;
-  invalidCouponError:string ="";
+  invalidCouponError: string = "";
 
-  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService,  private router: Router, private accountService: AccountService) {
+  constructor(private cartService: CartService, private formBuilder: FormBuilder, private alertService: AlertService, private router: Router, private accountService: AccountService) {
   }
   ngOnInit(): void {
     this.cartService.getCartItems().pipe(first()).subscribe(items => this.cartItems = items);
@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
       country: ['', Validators.required]
     });
     this.formCoupon = this.formBuilder.group({
-      coupon: ['',Validators.required]
+      coupon: ['', Validators.required]
     });
     this.grandTotal = this.calculateCartSubTotal();
   }
@@ -72,7 +72,7 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    const chosenCountry = this.formCountryControls.country.value;    
+    const chosenCountry = this.formCountryControls.country.value;
     this.shippingFee = this.countries.find(({ value }) => value == chosenCountry).shippingFee;
   }
 
@@ -85,19 +85,18 @@ export class CartComponent implements OnInit {
     }
 
     const appliedCoupon = this.formCouponControls.coupon.value;
-     
+
     this.discountObject = this.coupons.find(({ value }) => value == appliedCoupon.trim());
 
     if (!this.discountObject) {
       this.discount = 0;
-      this.discountPercentage = "%";  
+      this.discountPercentage = "%";
       this.invalidCouponError = "The entered coupon code is invalid, please try again";
     }
-    else 
-    {
-      this.discountPercentage = -this.discountObject.discount+"%";
+    else {
+      this.discountPercentage = -this.discountObject.discount + "%";
       this.discount = this.discountObject.discount;
-      this.discountOnSubTotal = this.discount *this.cartSubTotal/100;
+      this.discountOnSubTotal = this.discount * this.cartSubTotal / 100;
     }
   }
 
@@ -106,11 +105,13 @@ export class CartComponent implements OnInit {
   }
 
   deleteCartItem(item: any) {
-    if(window.confirm('Are sure you want to delete this item ?')){
+    if (window.confirm('Are sure you want to remove this item?')) {
       this.cartService.deleteCartItem(item).pipe(first()).subscribe({});
+      this.alertService.success("Item <strong>" + item.productName+ "</strong> has been removed from your cart");
+
       this.initCartItems();
     }
-    
+
   }
   updateQuantity(item: any, event: any) {
     const quantity = event.target.value;
@@ -123,15 +124,13 @@ export class CartComponent implements OnInit {
   calculateCartSubTotal() {
     const item = this.cartService.calculateCartSubTotal();
     this.cartSubTotal = item;
-    this.discountOnSubTotal = this.discount * this.cartSubTotal / 100 ;
+    this.discountOnSubTotal = this.discount * this.cartSubTotal / 100;
     this.grandTotal = this.cartSubTotal + this.shippingFee - this.discountOnSubTotal;
     return item;
   }
 
-  storeCheckoutInfo()
-  {
-    if(this.accountService.userValue)
-    {
+  storeCheckoutInfo() {
+    if (this.accountService.userValue) {
       this.checkoutObject.subTotal = this.cartSubTotal;
       this.checkoutObject.delivery = this.shippingFee;
       this.checkoutObject.discount = this.discountOnSubTotal;
@@ -148,16 +147,37 @@ export class CartComponent implements OnInit {
           }
           else {
             this.alertService.error(error);
-  
+
           }
         }
       });
     }
-    else
-    {
+    else {
       this.router.navigateByUrl('/checkout');
 
     }
-    
+
+  }
+
+  addToWishlist(item: any) {
+    if (window.confirm('Are sure you want to move this item to your wishlist?')) {
+
+      this.cartService.addToWishlist(item).pipe(first()).subscribe({
+        next: () => {
+          this.alertService.success("The item <strong>" + item.productName + "</strong> has been moved to your <a style='color: red;text-decoration:underline' href='/wishlist'><strong>wishlist </strong> </a>");
+          this.cartService.deleteCartItem(item).pipe(first()).subscribe({});
+          this.initCartItems();
+        },
+        error: error => {
+          if (error.hasOwnProperty("error")) {
+            this.alertService.error(error.error.message);
+          }
+          else {
+            this.alertService.error(error);
+
+          }
+        }
+      });
+    }
   }
 }

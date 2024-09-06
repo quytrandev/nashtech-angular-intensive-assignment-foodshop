@@ -1,1 +1,66 @@
-<p>wishlist works!</p>
+<div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <h1 class="mb-0 bread">My Wishlist</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="ftco-section ftco-cart">
+          <div class="container">
+              <div class="row">
+              <div class="col-md-12 ftco-animate">
+                <app-alert></app-alert>
+
+                  <div class="cart-list">
+                      <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                              <th>&nbsp;</th>
+                              <th>&nbsp;</th>              
+              
+                              <th>Product name</th>
+                              <th>Price</th>
+                              <th>Quantity</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="text-center" *ngFor="let item of wishlistItems">
+                              <td class="product-remove">
+                                <a (click)="removeItemFromWishlist(item)" title="Remove"><span class="ion-ios-close"></span></a>
+                                <a (click)="moveWishlistItemToCart(item)" title="Move to cart"><span class="ion-ios-cart"></span></a>
+
+                            </td>
+                              
+                            <td class="image-prod">
+                                <div class="img" style="background-image:url('{{item.photoSrc}}');"></div>
+                              </td>
+              
+                              <td class="product-name">
+                                <h3>{{item.productName}}</h3>
+                              </td>
+                              
+                              <td *ngIf="item.isOnSale" class="price">${{item.priceAfterSale | number:'1.2-2'}}</td>
+                                <td *ngIf="!item.isOnSale" class="price">${{item.priceBeforeSale|number:'1.2-2'}}</td>
+                              
+                                <td class="quantity">
+                                    <div class="input-group mb-3">
+                                      <input disabled="true" type="number" name="quantity"
+                                        class="quantity form-control" value="1" min="1" max="99">
+                                    </div>
+                                  </td>
+                  
+                                  <td class="total">${{item.total| number:'1.2-2'}}</td>
+                            </tr><!-- END TR-->
+
+                            
+                          </tbody>
+                        </table>
+                    </div>
+              </div>
+          </div>
+          </div>
+      </section>
