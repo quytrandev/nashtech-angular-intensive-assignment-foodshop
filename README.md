@@ -32,25 +32,25 @@ ___
 
 ___
 
-- [x] available/implemented feature
-- [ ] unavailable/not implemented feature 
+
 # Exercise 1: Authenthication
 
 ## 1.Objectives:
 Create a basic authentication system in Angular that allows users to register, log in, and access a protected route. The system will include form validation, user authentication, and route guarding.
 ## 2.Requirements:
-
-###	1.Registration Form:
+- [x] available/implemented feature
+- [ ] unavailable/not implemented feature 
+### 1.Registration Form:
 - [x] Create a registration component (RegisterComponent) with a form that includes fields for username, email, and password.
 - [x] Add form validation: required fields, email format validation, and minimum password length of 6 characters.
 - [x] On form submission, store the user data locally (e.g., using localStorage).	
-###	2.Login Form:
+### 2.Login Form:
 - [x] Create a login component (LoginCompronent) with a form that includes fields for email and password.
 - [x] Add form validation: required fields and email format validation.
 - [x] On form submission, check the credentials against the stored user data.
 - [x] If the credentials match, store a token (e.g., a simple string) in localStorage to simulate authentication.
 
-###	3.Navigation:
+### 3.Navigation:
 - [x] Create a basic navigation bar with links to the registration and login pages.
 - [x] Add a link to a protected route (CheckoutComponent), only accessible to logged-in users.
 ### 4.Authentication Service:
