@@ -2,7 +2,36 @@
 
 This project was generated with [Angular CLI](https://github.comm/angular/angular-cli) version 18.2.1.
 - [x] available/implemented feature
-- [] unavailable/not implemented feature 
+- [ ] unavailable/not implemented feature 
+
+___
+# Available Screens
+## Login
+![image](https://github.com/user-attachments/assets/0cc72a6b-f753-455c-9292-45c8b3174a5b)
+
+## Register
+![image](https://github.com/user-attachments/assets/c4f439c8-48ef-49c9-9e87-9a296c76de21)
+
+## Home
+![image](https://github.com/user-attachments/assets/b437b07e-99f5-40eb-9d8a-957a5a14d658)
+
+## Shop
+![image](https://github.com/user-attachments/assets/efed4158-3a23-4dbd-b129-90645a4f3e08)
+
+## Cart
+![image](https://github.com/user-attachments/assets/0913e3e8-9344-418f-8845-4565679e19be)
+  ### Coupon & Estimate
+  ![image](https://github.com/user-attachments/assets/f030a4cf-62b1-454e-99ba-3674487ccc19)
+  
+## Wishlist
+![image](https://github.com/user-attachments/assets/9adb20f2-79fa-4953-8085-34717b5d6ee1)
+
+## Checkout
+![image](https://github.com/user-attachments/assets/2772dc18-5dc6-42aa-a839-f056d941099f)
+
+## Order Summary
+![image](https://github.com/user-attachments/assets/175feaac-9250-47bb-a096-10fd07d7509b)
+![image](https://github.com/user-attachments/assets/1f2de8a8-1efb-4fed-93af-66b1c31b4bcc)
 
 ___
 
